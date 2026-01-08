@@ -10,8 +10,10 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.lang.reflect.Executable;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -21,6 +23,7 @@ import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -58,21 +61,21 @@ public class Game {
         JButton loadGame_btn = new JButton("Load Game");
         JButton quitGame_btn = new JButton("Quit");
 
-        // Create a menu bar
-        JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("Menu");
-        JMenuItem openItem = new JMenuItem("Open");
-        JMenuItem creditsItem = new JMenuItem("Credits");
-        JMenuItem guideItem = new JMenuItem("Guide");
-        JMenuItem exitItem = new JMenuItem("Exit");
-        fileMenu.add(openItem);
-        //fileMenu.addSeparator();
-        fileMenu.add(guideItem);
-        //fileMenu.addSeparator();
-        fileMenu.add(creditsItem);
-        fileMenu.addSeparator();
-        fileMenu.add(exitItem);
-        menuBar.add(fileMenu);
+//        // Create a menu bar
+//        JMenuBar menuBar = new JMenuBar();
+//        JMenu fileMenu = new JMenu("Menu");
+//        JMenuItem openItem = new JMenuItem("Open");
+//        JMenuItem creditsItem = new JMenuItem("Credits");
+//        JMenuItem guideItem = new JMenuItem("Guide");
+//        JMenuItem exitItem = new JMenuItem("Exit");
+//        fileMenu.add(openItem);
+//        //fileMenu.addSeparator();
+//        fileMenu.add(guideItem);
+//        //fileMenu.addSeparator();
+//        fileMenu.add(creditsItem);
+//        fileMenu.addSeparator();
+//        fileMenu.add(exitItem);
+//        menuBar.add(fileMenu);
 
         // Set frame properties
         mainMenu.setSize(800, 800); // Set the size of the frame
@@ -112,7 +115,7 @@ public class Game {
         gameMenu.add(loadGame_btn);
         gameMenu.add(quitGame_btn);
         mainMenu.remove(mainmenu_welcome);
-        mainMenu.setJMenuBar(menuBar);
+        mainMenu.setJMenuBar(createMenuBar(mainMenu));
         System.out.println("*DEBUG* Gamebar creation complete");
         GradientLabel title01 = new GradientLabel("Ashes of", mc.getColor("#FB1717"), mc.getColor("#0CC204"));
 
@@ -131,64 +134,7 @@ public class Game {
 
         System.out.println("*DEBUG* Game welcome complete... clearing on button press...");
 		
-        // Add action to the button CREDITS
-		creditsItem.addActionListener(new ActionListener() {
-    	    @Override
-    	    public void actionPerformed(ActionEvent e) {
-    	    		JLabel link = new JLabel("<html><a href=''>Click here!</a></html>");
-
-    	    		link.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-    	    		link.addMouseListener(new java.awt.event.MouseAdapter() {
-    	    		    @Override
-    	    		    public void mouseClicked(java.awt.event.MouseEvent e) {
-    	    		        try {
-    	    		            java.awt.Desktop.getDesktop().browse(
-    	    		                new java.net.URI("https://github.com/shini9000")
-    	    		            );
-    	    		        } catch (Exception ex) {
-    	    		            ex.printStackTrace();
-    	    		        }
-    	    		    }
-    	    		});
-	
-	    	    	JOptionPane.showMessageDialog(mainMenu, link);
-	    	    	}
-    	    });
-
-		// Add action to the button GUIDE
-		guideItem.addActionListener(new ActionListener() {
-	    	    @Override
-	    	    public void actionPerformed(ActionEvent e) {
-	    	    		JLabel link = new JLabel("<html><a href=''>Guide available here!</a></html>");
-	
-	    	    		link.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-	
-	    	    		link.addMouseListener(new java.awt.event.MouseAdapter() {
-	    		    @Override
-	    		    public void mouseClicked(java.awt.event.MouseEvent e) {
-	    		        try {
-	    		            java.awt.Desktop.getDesktop().browse(
-	    		                new java.net.URI("https://github.com/Shini9000/TextAdventureGame")
-	    		            );
-	    		        } catch (Exception ex) {
-	    		            ex.printStackTrace();
-	    		        }
-	    		    }
-	    		});
-		
-	    	    	JOptionPane.showMessageDialog(mainMenu, link);
-	    	    	}
-    	    });
-		
-        // Add action to the button EXIT
-        exitItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            		//JOptionPane.showMessageDialog(mainMenu, "Button Clicked!");
-            		System.exit(0);
-            }
-        });   
+          
         
         // Add action to the button QUIT
         quitGame_btn.addActionListener(new ActionListener() {
@@ -207,7 +153,7 @@ public class Game {
             		System.out.flush();
             		//JOptionPane.showMessageDialog(mainMenu, "Button Clicked!");
             		mainMenu.dispose();	// close menu window
-            	    newGame();	// start your game logic
+            		gameWindow();	// start your game logic
 
             }
         });
@@ -215,38 +161,188 @@ public class Game {
         
 	}
 	
+	private static JMenuBar createMenuBar(JFrame mainMenu) {
+	    JMenuBar menuBar = new JMenuBar();
+	    JMenu fileMenu = new JMenu("Menu");
+
+	    JMenuItem openItem = new JMenuItem("Open");
+	    JMenuItem guideItem = new JMenuItem("Guide");
+	    JMenuItem creditsItem = new JMenuItem("Credits");
+	    JMenuItem exitItem = new JMenuItem("Exit");
+
+	 // Add action to the button CREDITS
+	 		creditsItem.addActionListener(new ActionListener() {
+	     	    @Override
+	     	    public void actionPerformed(ActionEvent e) {
+	     	    		JLabel link = new JLabel("<html><a href=''>Click here!</a></html>");
+
+	     	    		link.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+	     	    		link.addMouseListener(new java.awt.event.MouseAdapter() {
+	     	    		    @Override
+	     	    		    public void mouseClicked(java.awt.event.MouseEvent e) {
+	     	    		        try {
+	     	    		            java.awt.Desktop.getDesktop().browse(
+	     	    		                new java.net.URI("https://github.com/shini9000")
+	     	    		            );
+	     	    		        } catch (Exception ex) {
+	     	    		            ex.printStackTrace();
+	     	    		        }
+	     	    		    }
+	     	    		});
+	 	
+	 	    	    	JOptionPane.showMessageDialog(mainMenu, link);
+	 	    	    	}
+	     	    });
+
+	 		// Add action to the button GUIDE
+	 		guideItem.addActionListener(new ActionListener() {
+	 	    	    @Override
+	 	    	    public void actionPerformed(ActionEvent e) {
+	 	    	    		JLabel link = new JLabel("<html><a href=''>Guide available here!</a></html>");
+	 	
+	 	    	    		link.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+	 	
+	 	    	    		link.addMouseListener(new java.awt.event.MouseAdapter() {
+	 	    		    @Override
+	 	    		    public void mouseClicked(java.awt.event.MouseEvent e) {
+	 	    		        try {
+	 	    		            java.awt.Desktop.getDesktop().browse(
+	 	    		                new java.net.URI("https://github.com/Shini9000/AshesOfPestilence")
+	 	    		            );
+	 	    		        } catch (Exception ex) {
+	 	    		            ex.printStackTrace();
+	 	    		        }
+	 	    		    }
+	 	    		});
+	 		
+	 	    	    	JOptionPane.showMessageDialog(mainMenu, link);
+	 	    	    	}
+	     	    });
+	 		
+	         // Add action to the button EXIT
+	         exitItem.addActionListener(new ActionListener() {
+	             @Override
+	             public void actionPerformed(ActionEvent e) {
+	             		//JOptionPane.showMessageDialog(mainMenu, "Button Clicked!");
+	             		System.exit(0);
+	             }
+	         }); 
+	    
+	    fileMenu.add(openItem);
+	    fileMenu.add(guideItem);
+	    fileMenu.add(creditsItem);
+	    fileMenu.addSeparator();
+	    fileMenu.add(exitItem);
+
+	    menuBar.add(fileMenu);
+	    return menuBar;
+	}
+
 	
-	private static JFrame window;
-	public static void gameWindow(String[] args) {
-        SwingUtilities.invokeLater(Game::start);
-    }
-
-    private static void start() {
-        window = new JFrame("Game");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(900, 900);
-        window.setLayout(new BorderLayout());
-
-        showNewGameScreen();
-        window.setVisible(true);
-    }
-
-    private static void showNewGameScreen() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 5)); // 3 rows, 5 columns
-
-        for (int i = 1; i <= 15; i++) {
-            panel.add(new JButton("B" + i));
-        }
-
-        window.setContentPane(panel);
-        window.revalidate();
-        window.repaint();
-    }
-
-
 	
+	public static void gameWindow() {   
+		// Create a menu bar
+        
+		JFrame gameWindow = new JFrame("Ashes of Pestilence");
+	    gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    gameWindow.setSize(800, 800);
+	    gameWindow.setLayout(new BorderLayout());
+        gameWindow.setJMenuBar(createMenuBar(gameWindow));
+	    
+	    // -------------------------
+	    // PHOTO PANEL (TOP)
+	    // -------------------------
+        
+	    JPanel photoPanel = new JPanel();
+	    photoPanel.setBackground(Color.BLACK);
 
+	    // Example placeholder label
+	    JLabel photoLabel = new JLabel();
+	    ImageIcon iconLogo = new ImageIcon(Game.class.getResource("/AOP_ref.PNG"));
+	    Image image = iconLogo.getImage().getScaledInstance(400, 550, Image.SCALE_SMOOTH);
+	    photoLabel.setIcon(new ImageIcon(image));
+
+	    //photoLabel.setForeground(Color.WHITE);
+	    photoPanel.add(photoLabel);
+	    photoPanel.setPreferredSize(new Dimension(250, 550));
+	    System.out.println(new File("resources/AOP_ref.PNG").getAbsolutePath());
+	    System.out.println("Loaded: " + iconLogo.getIconWidth() + "x" + iconLogo.getIconHeight());
+
+	    // Add photo panel to top
+	    gameWindow.add(photoPanel, BorderLayout.NORTH);
+
+	    // -------------------------
+	    // BUTTON GRID PANEL (BOTTOM)
+	    // -------------------------
+	    JPanel buttonPanel = new JPanel(new GridLayout(2, 2)); 
+	    buttonPanel.setBackground(Color.DARK_GRAY);
+	    buttonPanel.setPreferredSize(new Dimension(0, 250));
+	    PlayerProfile pp = new PlayerProfile();
+	    // Add 16 buttons
+	    for (int i = 0; i < 8; i++) {
+	    	switch (i) {
+	    		case 1:
+	    	        JButton action_btn = new JButton("Action");
+	    	        buttonPanel.add(action_btn);
+	    			break;
+	    		case 2:
+    				JButton bag_btn = new JButton("Bag");
+	    	        buttonPanel.add(bag_btn);
+	    	        
+	    	        // Add action to the button NEWGAME
+	    	        bag_btn.addActionListener(new ActionListener() {
+	    	            @Override
+	    	            public void actionPerformed(ActionEvent e) {
+	    	            	if (pp.storageBag == "") {
+	    	            		System.out.println("You dont have a storage bag!");
+	    	            	} else {
+	    	            		System.out.println("*DEBUG* OPEN STORAGE BAG WINDOW");
+	    	            		//openStorage();
+	    	            	}
+
+	    	            }
+	    	        });
+	    			break;
+	    		case 3:
+	    	        JButton stats_btn = new JButton("Stats");
+	    	        buttonPanel.add(stats_btn);
+	    			break;
+	    		case 4:
+	    	        JButton map_btn = new JButton("Map");
+	    	        buttonPanel.add(map_btn);
+	    			break;
+	    			
+	    			
+	    			
+	    	}
+	        //JButton btn = new JButton("B" + (i + 1));
+	        //buttonPanel.add(btn);
+	    	
+	    	
+	    }
+
+	    // Add button panel to center
+	    gameWindow.add(buttonPanel, BorderLayout.CENTER);
+
+	    gameWindow.setVisible(true);
+	    
+	    
+	    
+	}
+
+
+//	if (pp.storageBag == "") {
+//		System.out.println("You dont have a bag...");
+//		break;
+//	} else { 
+//		JButton bag_btn = new JButton("Bag");
+//	}
+
+
+    
+    
+    
 	// Loads the game
 	private static void loadGame() {
 		System.out.println("game loading");
@@ -258,7 +354,7 @@ public class Game {
 	
 	// Starts the new game
 	private static void newGame() {
-
+		
 	    
 		Scanner input = new Scanner(System.in);
 		

@@ -10,6 +10,8 @@ public class PlayerProfile {
 	float currency = 10.00f;
     float experience = 0.00f;
 	
+    String storageBag = "";
+    
 	int level = 1;
 	int health = 10;
     int mana = 10; 
@@ -17,7 +19,6 @@ public class PlayerProfile {
     int spellSlots = 0; 
     int healthPots = 0; 
     int manaPots = 0;
-    int bagSpace = 0; 
     
 	int strength = 0;
     int acrobatics = 0; 
