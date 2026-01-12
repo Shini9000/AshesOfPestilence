@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.shini9000</groupId>
     <artifactId>AshesOfPestilence</artifactId>
-    <version>1.2</version>
+    <version>0.3</version>
 
     <build>
     	<finalName>AOP_${project.version}_${java.version}</finalName>

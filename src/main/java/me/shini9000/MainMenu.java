@@ -28,7 +28,7 @@ import me.shini9000.utils.MyColors;
 
 public class MainMenu {
 	private JFrame frame;
-	public float gameVersion = 1.1f;
+	public float gameVersion = 0.3f;
 	
 	public static void main(String[] args) { 
 		Scanner myScanner = new Scanner(System.in);
@@ -44,7 +44,7 @@ public class MainMenu {
 
 	    // Example placeholder label
 	    JLabel photoLabel = new JLabel();
-	    ImageIcon iconLogo = new ImageIcon(Game.class.getResource("/AOP_ref.PNG"));
+	    ImageIcon iconLogo = new ImageIcon(GameOLD.class.getResource("/AOP_ref.PNG"));
 	    Image image = iconLogo.getImage().getScaledInstance(400, 550, Image.SCALE_SMOOTH);
 	    photoLabel.setIcon(new ImageIcon(image));
 

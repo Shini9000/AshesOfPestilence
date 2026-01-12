@@ -14,8 +14,14 @@ public class MyColors {
 	
 	public Color getColor(String hex) {
 		return Color.decode(hex);
-		
-		
 	}
+	
+
+	public static String coloredText(String text, String hex) {
+	    return "<html><span style='color:" + hex + ";'>" + text + "</span></html>";
+	}
+
+	
+	
 	
 }

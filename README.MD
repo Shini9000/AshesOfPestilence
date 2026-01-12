@@ -36,3 +36,5 @@ Classes: Hunter, Mage, Warrior and Assassin
 | Insight     |  +7   |  +15  |   -7    |   +12    |
 | Persona     |  NA   |  NA   |   NA    |   NA     |
 | Belief      |  +2   |  +20  |   -10   |   +5     |
+
+###### Cheat code: `AOP0.3`

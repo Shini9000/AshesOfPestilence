@@ -5,10 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.im.InputContext;
-import java.util.Scanner;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,14 +14,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JTextField;
 
-import me.shini9000.utils.GradientLabel;
 import me.shini9000.utils.MyColors;
 
 public class GameWindow {
 	private JFrame frame;
+	
 	
 	public GameWindow(String state) {  
 		JFrame gameWindow = new JFrame("Ashes of Pestilence");
@@ -49,40 +44,37 @@ public class GameWindow {
 	
 	private void createGameWindowTEST() {
 	    MyColors mc = new MyColors();
-	    JFrame frame = new JFrame("Merged Grid Example");
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setSize(600, 600);
+	    JFrame window = new JFrame("Merged Grid Example");
+	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    window.setSize(600, 600);
 
 	    JPanel main = new JPanel(new BorderLayout());
 
-	    // Section 1: Title bar
-	    JPanel top = new JPanel(new BorderLayout());
-	    GradientLabel field = new GradientLabel(
-	        "Character creation",
-	        mc.getColor("#008080"),
-	        mc.getColor("#008080")
-	    );
-	    field.setPreferredSize(new Dimension(10, 35));
-	    top.add(field, BorderLayout.CENTER);
-
 	    // Section 2: 5x5 grid
-	    JPanel middle = new JPanel(new GridLayout(5, 5));
-	    for (int i = 0; i < 25; i++) {
-	        middle.add(new JButton("M" + i));
-	    }
+	    JPanel middle = new JPanel(new GridLayout(2, 2));
+	    middle.setPreferredSize(new Dimension(100, 100));
+	    middle.setMaximumSize(new Dimension(100, 100));
+	    middle.setMinimumSize(new Dimension(100, 100));
+    	middle.setVisible(false);
+//	    for (int i = 0; i < 4; i++) {
+//	        middle.add(new JButton("M" + i));
+//	    }
 
 	    // Section 3: 5x3 grid
-	    JPanel bottom = new JPanel(new GridLayout(5, 3));
-	    for (int i = 0; i < 15; i++) {
-	        bottom.add(new JButton("B" + i));
-	    }
+	    JPanel bottom = new JPanel(new GridLayout(1, 3));
+    	bottom.setVisible(false);
+//	    for (int i = 0; i < 3; i++) {
+//	        bottom.add(new JButton("B" + i));
+//	    }
 
-	    main.add(top, BorderLayout.NORTH);
+	    Game.startTutorial(window, main, middle, bottom);
 	    main.add(middle, BorderLayout.CENTER);
 	    main.add(bottom, BorderLayout.SOUTH);
 
-	    frame.add(main);
-	    frame.setVisible(true);
+	    window.add(main);
+	    window.setVisible(true);
+	    
+	    
 	}
 
 
