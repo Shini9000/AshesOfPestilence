@@ -6,6 +6,7 @@ public class PlayerProfile {
     Inventory inventory = new Inventory();
     String username;
     String user_race;
+    String user_class;
 
 	float currency = 10.00f;
     float experience = 0.00f;

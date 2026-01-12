@@ -153,7 +153,9 @@ public class Game {
             		System.out.flush();
             		//JOptionPane.showMessageDialog(mainMenu, "Button Clicked!");
             		mainMenu.dispose();	// close menu window
-            		gameWindow();	// start your game logic
+            	    System.out.println("newgame window loaded");
+            		newGame();
+            	    //gameWindow();
 
             }
         });
@@ -241,9 +243,8 @@ public class Game {
 
 	
 	
-	public static void gameWindow() {   
-		// Create a menu bar
-        
+	public static void gameWindow() {  
+	    System.out.println("window loading"); 
 		JFrame gameWindow = new JFrame("Ashes of Pestilence");
 	    gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    gameWindow.setSize(800, 800);
@@ -282,11 +283,11 @@ public class Game {
 	    // Add 16 buttons
 	    for (int i = 0; i < 8; i++) {
 	    	switch (i) {
-	    		case 1:
+	    		case 0:
 	    	        JButton action_btn = new JButton("Action");
 	    	        buttonPanel.add(action_btn);
 	    			break;
-	    		case 2:
+	    		case 1:
     				JButton bag_btn = new JButton("Bag");
 	    	        buttonPanel.add(bag_btn);
 	    	        
@@ -304,29 +305,42 @@ public class Game {
 	    	            }
 	    	        });
 	    			break;
-	    		case 3:
+	    		case 2:
 	    	        JButton stats_btn = new JButton("Stats");
 	    	        buttonPanel.add(stats_btn);
 	    			break;
-	    		case 4:
+	    		case 3:
 	    	        JButton map_btn = new JButton("Map");
 	    	        buttonPanel.add(map_btn);
 	    			break;
-	    			
-	    			
+	    		default:
+	    			break;
 	    			
 	    	}
+	    }
+//	    JButton action_btn = new JButton("Action");
+//	    JButton bag_btn = new JButton("Bag");
+//	    JButton stats_btn = new JButton("Stats");
+//	    JButton map_btn = new JButton("Map");
+//
+//	    buttonPanel.add(action_btn);
+//	    buttonPanel.add(bag_btn);
+//	    buttonPanel.add(stats_btn);
+//	    buttonPanel.add(map_btn);
+
 	        //JButton btn = new JButton("B" + (i + 1));
 	        //buttonPanel.add(btn);
 	    	
-	    	
-	    }
 
 	    // Add button panel to center
 	    gameWindow.add(buttonPanel, BorderLayout.CENTER);
-
+	    gameWindow.revalidate();
+	    gameWindow.repaint();
 	    gameWindow.setVisible(true);
-	    
+	    System.out.println("window loaded");
+	    createPlayer();
+	    System.out.println("CREATING PLAYER DBEUG MESSAGE");
+
 	    
 	    
 	}
@@ -353,27 +367,33 @@ public class Game {
 
 	
 	// Starts the new game
-	private static void newGame() {
-		
-	    
-		Scanner input = new Scanner(System.in);
-		
-		try {
-			saveSlot = 1;
-			System.out.println("Current saveslot: " + saveSlot);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println("Welcome to some Java text adventure game called... /press enter/");
-		input.nextLine();
-		System.out.println("Ashes of Pestilence!!!!");
-		input.nextLine();
-		System.out.println("Creative I know... \nDon't judge it too much it's truly special in a way :) ");
-		
-		createPlayer();
+	private static void newGame() {    
+		SwingUtilities.invokeLater(() -> {
+        gameWindow();
+		});
 	}
+
+//	    System.out.println("window loadinginging");
+//		
+//	    
+//		Scanner input = new Scanner(System.in);
+//		
+//		try {
+//			saveSlot = 1;
+//			System.out.println("Current saveslot: " + saveSlot);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		System.out.println("Welcome to some Java text adventure game called... /press enter/");
+//		input.nextLine();
+//		System.out.println("Ashes of Pestilence!!!!");
+//		input.nextLine();
+//		System.out.println("Creative I know... \nDon't judge it too much it's truly special in a way :) ");
+//		
+//		createPlayer();
+//	}
 	
 	// CHANGING TO ITS OWN "NEW GAME JAVA"
 	public static void createPlayer() {
@@ -428,14 +448,34 @@ public class Game {
 		    }
 		}
 		
+		// CLASS
+		while (true) {
+		    System.out.println("Please enter a race: \n" + Arrays.toString(userClass));
+		    String choice = input.nextLine();
+
+		    boolean found = false;
+		    for (String clazz : userClass) {
+		        if (clazz.equalsIgnoreCase(choice)) {
+		            found = true;
+		            break; // stop checking once we find a match
+		        }
+		    }
+
+		    if (found) {
+		        System.out.println("Race accepted: " + choice);
+		        pp.user_class = choice;
+		        break; // exit the while loop
+		    } else {
+		        System.out.println("Invalid race, try again.");
+		    }
+		}
+		
+		
+		// stats manager
 		switch(pp.user_race) {
 			case "orc":
 				System.out.println("Your race is " + pp.user_race);
 				pp.health = pp.health + 10;
-				break;
-			case "chicken":
-				System.out.println("Your race is " + pp.user_race);
-				pp.health--;
 				break;
 			case "elf":
 				System.out.println("Your race is " + pp.user_race);
@@ -443,8 +483,30 @@ public class Game {
 			case "dwarf":
 				System.out.println("Your race is " + pp.user_race);
 				break;
-			default:
+			case "human":
 				System.out.println("Your race is " + pp.user_race);
+				break;
+			default:
+				System.out.println("This is a negative return string... please submit a bug report (ERROR CODE: R01)");
+		}
+		
+		// class manager story arc start
+		switch(pp.user_class) {
+			case "hunter":
+				System.out.println("Your race is " + pp.user_class);
+				pp.health = pp.health + 10;
+				break;
+			case "mage":
+				System.out.println("Your race is " + pp.user_class);
+				break;
+			case "assassin":
+				System.out.println("Your race is " + pp.user_class);
+				break;
+			case "warrior":
+				System.out.println("Your race is " + pp.user_class);
+				break;
+			default:
+				System.out.println("This is a negative return string... please submit a bug report (ERROR CODE: C01)");
 		}
 		
 		System.out.println(pp.strength);
