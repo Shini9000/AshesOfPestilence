@@ -3,6 +3,7 @@ package me.shini9000;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -45,38 +46,98 @@ public class Game {
 	        if (username.isEmpty()) 
 	        	return;
 
+	        top.add(msg2);       // add second label
 	        top.remove(input);   // remove input box
 	        
 //		    Timer t2 = new Timer(3000, te -> {
 	    	username.toString();
 	    	msg.setText(mc.coloredText("CHARACTER CREATION | " + mc.coloredText(username, "#07AB00"), "#FF78F5"));
-	        msg2.setText(mc.coloredText("Select a race", "#000000"));
-	        top.add(msg2);       // add second label
-	        middle.setVisible(true);
 
 	        top.revalidate();
 	        top.repaint();
+		    createCharacterRaceButtons(window, main, middle, bottom, msg2);
+		    
 //		    });
 //		    t2.setRepeats(false);
 //		    t2.start();
 	    });
-	    
-	    
-	    for (int i = 0; i < 4; i++) {
 
-	        JButton btn; // shared reference
+	    main.add(top, BorderLayout.NORTH);
+	}
+	
+	private static void createCharacterRaceButtons(JFrame window, JPanel main, JPanel middle, JPanel bottom, JLabel msg2) {
+	    MyColors mc = new MyColors();
+        msg2.setText(mc.coloredText("Select a race", "#000000"));
+        middle.setVisible(true);
+		for (int i = 0; i < 4; i++) {
+
+	        JButton btn; // shared reference]
 	        switch (i) {
 	        case 0:
 	            btn = new JButton("DWARF");
+
 	            break;
 	        case 1:
-	            btn = new JButton("ELF");
+	            btn = new JButton("ELFfgghfgdgeg");
+
 	            break;
 	        case 2:
 	            btn = new JButton("HUMAN");
+
 	            break;
 	        case 3:
 	            btn = new JButton("ORC");
+
+	            break;
+	        default:
+	            continue;
+	            
+	    }
+
+
+
+
+	        // Add your event here
+	        btn.addActionListener(e -> {
+	            String race = btn.getText();
+	            System.out.println("Selected race: " + race);
+	            middle.setVisible(false);
+	            middle.removeAll();
+	            middle.revalidate();
+	            middle.repaint();
+	            createCharacterClassButtons(window, main, middle, bottom, msg2);
+
+	            // Next step in your character creation flow
+	            // e.g. showClassSelection(race);
+	        });		
+
+
+	        middle.add(btn);
+	
+		}
+		
+	}
+	
+	private static void createCharacterClassButtons(JFrame window, JPanel main, JPanel middle, JPanel bottom, JLabel msg2) {
+	    MyColors mc = new MyColors();
+        msg2.setText(mc.coloredText("Select a class", "#000000"));
+        PlayerProfile pp = PlayerProfile();
+        middle.setVisible(true);
+		for (int i = 0; i < 4; i++) {
+
+	        JButton btn2; // shared reference
+	        switch (i) {
+	        case 0:
+	            btn2 = new JButton("ASSASSIN");
+	            break;
+	        case 1:
+	            btn2 = new JButton("HUNTER");
+	            break;
+	        case 2:
+	            btn2 = new JButton("MAGE");
+	            break;
+	        case 3:
+	            btn2 = new JButton("WARRIOR");
 	            break;
 	        default:
 	            continue;
@@ -84,19 +145,27 @@ public class Game {
 
 
 	        // Add your event here
-	        btn.addActionListener(e -> {
-	            String race = btn.getText();
-	            System.out.println("Selected race: " + race);
-	            msg2.setText(mc.coloredText("Select a class", "#000000"));
+	        btn2.addActionListener(e -> {
+	            String clazz = btn2.getText();
+	            System.out.println("Selected class: " + clazz);
 	            middle.setVisible(false);
+	            middle.removeAll();
+	            middle.revalidate();
+	            middle.repaint();
+	            pp.user_class = clazz;
+	            
+	            
+
 
 	            // Next step in your character creation flow
 	            // e.g. showClassSelection(race);
 	        });
 
-	        middle.add(btn);
-	    }
-
-	    main.add(top, BorderLayout.NORTH);
+	        middle.add(btn2);
+	
+		}
+		
 	}
+
+	
 }

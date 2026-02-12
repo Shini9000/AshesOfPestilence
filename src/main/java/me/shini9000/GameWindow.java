@@ -2,7 +2,10 @@ package me.shini9000;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -51,10 +54,13 @@ public class GameWindow {
 	    JPanel main = new JPanel(new BorderLayout());
 
 	    // Section 2: 5x5 grid
-	    JPanel middle = new JPanel(new GridLayout(2, 2));
-	    middle.setPreferredSize(new Dimension(100, 100));
-	    middle.setMaximumSize(new Dimension(100, 100));
-	    middle.setMinimumSize(new Dimension(100, 100));
+	    JPanel middle = new JPanel(new GridBagLayout());
+	    GridBagConstraints gbc = new GridBagConstraints();
+	    middle.setPreferredSize(new Dimension(20, 20));
+	    gbc.insets = new Insets(2, 2, 2, 2);
+
+//	    middle.setMaximumSize(new Dimension(100, 100));
+//	    middle.setMinimumSize(new Dimension(100, 100));
     	middle.setVisible(false);
 //	    for (int i = 0; i < 4; i++) {
 //	        middle.add(new JButton("M" + i));

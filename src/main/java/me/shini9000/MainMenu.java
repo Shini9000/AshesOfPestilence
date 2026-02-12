@@ -94,7 +94,6 @@ public class MainMenu {
         
 	    // Run this AFTER 3 seconds (3000 ms)
 	    Timer t = new Timer(3000, e -> {
-
 	        mainMenu.setSize(800, 800);
 	        // whatever you want to do after the delay
 	        mainMenu.remove(photoPanel);
